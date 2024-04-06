@@ -8,9 +8,13 @@ export const getQueryString = (params: Record<string, any>): string => {
 	const process = (key: string, value: any) => {
 		if (isDefined(value)) {
 			if (Array.isArray(value)) {
-				value.forEach(v => {
-					process(key, v);
-				});
+				// preserve indexes for array type query params
+				let newValue = {};
+                value.forEach((v, i) => {
+                	newValue[i] = v;
+                });
+
+                process(key, newValue);
 			} else if (typeof value === 'object') {
 				Object.entries(value).forEach(([k, v]) => {
 					process(`${key}[${k}]`, v);
