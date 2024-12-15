@@ -55,6 +55,8 @@ export const getOperation = (
         operation.parametersPath.push(...parameters.parametersPath);
         operation.parametersQuery.push(...parameters.parametersQuery);
         operation.parametersForm.push(...parameters.parametersForm);
+        operation.parametersHeader.push(...parameters.parametersHeader);
+        operation.parametersCookie.push(...parameters.parametersCookie);
         operation.parametersBody = parameters.parametersBody;
     }
 
@@ -64,13 +66,6 @@ export const getOperation = (
         operation.imports.push(...requestBody.imports);
         operation.parameters.push(requestBody);
         operation.parametersBody = requestBody;
-    }
-
-    // Parse the operation parameters (path, query, body, etc).
-    if (op.parameters) {
-        const parameters = getOperationParameters(openApi, op.parameters);
-        operation.parametersHeader.push(...parameters.parametersHeader);
-        operation.parametersCookie.push(...parameters.parametersCookie);
     }
 
     // Parse the operation responses.
